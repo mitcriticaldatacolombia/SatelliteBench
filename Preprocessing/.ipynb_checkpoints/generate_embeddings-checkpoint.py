@@ -40,7 +40,6 @@ def read_image(path, crop=True, target_size=(224,224,3), BANDS='RGB', BAND=0):
             image_arr = image_arr[:, :, [3,7,11]] 
         elif BANDS == 'CI':
             image_arr = image_arr[:, :, [3,4,7]] 
-        print(f'rgb shape: {image_arr.shape}')
     # One band:
     elif target_size[2] == 1:
         image_arr = image_arr[:, :, BAND]
@@ -66,7 +65,10 @@ def get_image_name(path):
 
 """ Image Name from Path """
 def get_municipality_name(path):
-    image_name = path[path.index('_cities/')+8:path.index('/image')]
+    if '_cities/' in path:
+        image_name = path[path.index('_cities/')+8:path.index('/image')]
+    else:
+        image_name = path[path.index('_augmented/')+11:path.index('/image')]
     return image_name
 
 def generate_embeddings_df(image_list, model, crop=True, target_size=(224,224,3), BANDS='RGB', BAND=0):

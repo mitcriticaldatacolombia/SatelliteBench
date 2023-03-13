@@ -1,6 +1,6 @@
 """ Test the Model """
 import numpy as np
-from sklearn.metrics import mean_squared_error, mean_absolute_error
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 import matplotlib.pyplot as plt
 
 from math import sqrt
@@ -72,8 +72,13 @@ def Mean_absolute_error(y_true, y_pred):
     print('Test MAE: %.3f' % mae)
     return mae
 
-mean_absolute_error
-
+""" R Squared """
+def r_squared(y_true, y_pred):
+    y_true, y_pred = np.array(y_true), np.array(y_pred)
+    r2 = r2_score(y_true, y_pred)
+    print('Test R Squared: %.3f' % r2)
+    return r2
+    
 """ RMSE """
 def root_mean_squared_error(y_true, y_pred):
     y_true, y_pred = np.array(y_true), np.array(y_pred)
@@ -110,9 +115,11 @@ def evaluate(model, test_X, test_y, scaler):
     stored_results = {}
     
     inv_yhat_lstm, inv_y_lstm = test_model(model=model, test_X=test_X, test_y=test_y, scaler=scaler)
+    
     stored_results['mae'] = Mean_absolute_error(inv_y_lstm, inv_yhat_lstm)
-    stored_results['smape'] = symmetric_mean_absolute_percentage_error(inv_y_lstm, inv_yhat_lstm)
     stored_results['rmse'] = root_mean_squared_error(inv_y_lstm, inv_yhat_lstm)
+    stored_results['smape'] = symmetric_mean_absolute_percentage_error(inv_y_lstm, inv_yhat_lstm)
+    stored_results['r2'] = r_squared(inv_y_lstm, inv_yhat_lstm)
 
     return stored_results, inv_yhat_lstm, inv_y_lstm
 
@@ -141,7 +148,8 @@ def calculate_mean_std(lstm_layers, nn_layers, sequence, features, dense_acivati
     metrics = {
         "rmse": [],
         "mae": [],
-        "smape": []
+        "smape": [],
+        "r2": []
     }
     
     plot_predictions(train_y, None, model_name = 'Train')
@@ -207,7 +215,7 @@ def calculate_mean_std(lstm_layers, nn_layers, sequence, features, dense_acivati
     if not(plot_samples):
         plot_predictions(inv_y_lstm, inv_yhat_lstm, model_name = f'{Municipality} test {n_tests}')
         
-    return [np.average(metrics["rmse"]), np.std(metrics["rmse"])], [np.average(metrics["mae"]), np.std(metrics["mae"])], [np.average(metrics["smape"]), np.std(metrics["smape"])] 
+    return [np.average(metrics["rmse"]), np.std(metrics["rmse"])], [np.average(metrics["mae"]), np.std(metrics["mae"])], [np.average(metrics["smape"]), np.std(metrics["smape"])], [np.average(metrics["r2"]), np.std(metrics["r2"])]
 
 
 
@@ -332,7 +340,7 @@ def evaluate_lstm_for_city(labels, embeddings, Municipality, train_percentage, T
     sequence=train_X.shape[1]
     features=train_X.shape[2]
     if not classification:
-        rmse, mae, smape = calculate_mean_std(lstm_layers, nn_layers, sequence, features, dense_acivation, recurrent_cells, bidirectional, train_X, train_y, test_X, test_y, scalers['scaler_Labels'], monitor, plot, epochs, batch_size, n_tests, plot_samples, Municipality=Municipality, fusion=fusion, x_ar=x_ar, x_ar_test=x_ar_test)
+        rmse, mae, smape, r2 = calculate_mean_std(lstm_layers, nn_layers, sequence, features, dense_acivation, recurrent_cells, bidirectional, train_X, train_y, test_X, test_y, scalers['scaler_Labels'], monitor, plot, epochs, batch_size, n_tests, plot_samples, Municipality=Municipality, fusion=fusion, x_ar=x_ar, x_ar_test=x_ar_test)
     
     else:
         auc, acc, f1 = calculate_mean_std_classification(lstm_layers, nn_layers, sequence, features, dense_acivation, recurrent_cells, bidirectional, train_X, train_y, test_X, test_y, scalers['scaler_Labels'], monitor, plot, epochs, batch_size, n_tests, plot_samples, Municipality=Municipality, fusion=fusion, x_ar=x_ar, x_ar_test=x_ar_test)
@@ -342,6 +350,6 @@ def evaluate_lstm_for_city(labels, embeddings, Municipality, train_percentage, T
     print('#'*100)
     
     if not classification:
-        return rmse, mae, smape
+        return rmse, mae, smape #r2
     else:
         return auc, acc, f1

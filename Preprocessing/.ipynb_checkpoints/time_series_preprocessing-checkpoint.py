@@ -85,6 +85,15 @@ def get_temperature_and_precipitation(city, features):
     features_df = temperature_df.merge(precipitation_df, how='inner', on='LastDayWeek')
 
     features_df['LastDayWeek'] = features_df['LastDayWeek'].apply(epiweek_from_date)
+    
+    dictionary = {}
+    
+    for cols in features_df.columns:
+        if 'temperature' in cols:
+            dictionary[cols] = 'temperature'
+        if 'precipitation' in cols:
+            dictionary[cols] = 'precipitation'
+    features_df.rename(columns=dictionary, inplace=True)
 
     features_df = features_df.set_index('LastDayWeek')
     features_df.index.name = None
@@ -294,65 +303,173 @@ def get_dengue_dataset(labels_path, embeddings_path, municipality, temp_prec=Fal
 
     if limit:
         labels_df = labels_df[(labels_df.index > 201545) & (labels_df.index < 201901)]
+        
     
-    if (not embeddings_path) and (not cases) and (not static):
+    """ Test All Possible Combinations: """
+    if not embeddings_path and not cases and not static and not temp_prec:
+        # All variables are False
         return labels_df
     
-    elif (not embeddings_path)  and (not static) and cases:
-        features_extra_df = read_labels(path=cases, Municipality=municipality)
-        features_extra_df.rename(columns={'Labels':'cases'}, inplace=True)
-        return features_extra_df.merge(labels_df, how='inner', left_index=True, right_index=True)
-    
-    elif (not embeddings_path)  and (not cases) and static:
-        static = read_static(path=static, Municipality=municipality)
-        labels_df = static.merge(labels_df, how='right', left_index=True, right_index=True)
-        labels_df = labels_df.fillna(labels_df.mode().iloc[0])
-        
-        return labels_df
-    
-    elif (not embeddings_path)  and cases and static:
-        static = read_static(path=static, Municipality=municipality)
-        labels_df = static.merge(labels_df, how='right', left_index=True, right_index=True)
-        labels_df = labels_df.fillna(labels_df.mode().iloc[0])
-        
-        features_extra_df = read_labels(path=cases, Municipality=municipality)
-        features_extra_df.rename(columns={'Labels':'cases'}, inplace=True)
-        
-        return features_extra_df.merge(labels_df, how='inner', left_index=True, right_index=True)
-    
-    elif embeddings_path and cases and not(static):
-        
-        features_extra_df = read_labels(path=cases, Municipality=municipality)
-        features_extra_df.rename(columns={'Labels':'cases'}, inplace=True)
-        
-    elif embeddings_path and not(cases) and static:
-        static = read_static(path=static, Municipality=municipality)
-        labels_df = static.merge(labels_df, how='right', left_index=True, right_index=True)
-        labels_df = labels_df.fillna(labels_df.mode().iloc[0])
-
-    elif embeddings_path and cases and static:
-        static = read_static(path=static, Municipality=municipality)
-        labels_df = static.merge(labels_df, how='right', left_index=True, right_index=True)
-        labels_df = labels_df.fillna(labels_df.mode().iloc[0])
-        
-        features_extra_df = read_labels(path=cases, Municipality=municipality)
-        features_extra_df.rename(columns={'Labels':'cases'}, inplace=True)
-        
-    
-    if temp_prec:
-        features_df = get_temperature_and_precipitation(municipality, embeddings_path)
-    else:
-        features_df = read_features(path=embeddings_path, Municipality=municipality)
-    
-     
-    # Merge the two dataframes based on the date values
-    if cases:
-        dengue_df = features_df.merge(features_extra_df, how='inner', left_index=True, right_index=True)
-        dengue_df = dengue_df.merge(labels_df, how='inner', left_index=True, right_index=True)
-    else:
+    elif not embeddings_path and not cases and not static and temp_prec:
+        # Only temp_prec is True
+        features_df = get_temperature_and_precipitation(municipality, temp_prec)
         dengue_df = features_df.merge(labels_df, how='inner', left_index=True, right_index=True)
+        return dengue_df
+    
+    elif not embeddings_path and not cases and static and not temp_prec:
+        # Only static is True
+        static = read_static(path=static, Municipality=municipality)
+        labels_df = static.merge(labels_df, how='right', left_index=True, right_index=True)
+        labels_df = labels_df.fillna(labels_df.mode().iloc[0])    
+        return labels_df
+    
+    elif not embeddings_path and not cases and static and temp_prec:
+        # Both static and temp_prec are True
+        static = read_static(path=static, Municipality=municipality)
+        labels_df = static.merge(labels_df, how='right', left_index=True, right_index=True)
+        labels_df = labels_df.fillna(labels_df.mode().iloc[0])
+        # Temperature and Precipitation
+        features_df = get_temperature_and_precipitation(municipality, temp_prec)
+        dengue_df = features_df.merge(labels_df, how='inner', left_index=True, right_index=True)
+        return dengue_df
+    
+    elif not embeddings_path and cases and not static and not temp_prec:
+        # Only cases is True
+        features_extra_df = read_labels(path=cases, Municipality=municipality)
+        features_extra_df.rename(columns={'Labels':'cases'}, inplace=True)
+        labels_df = features_extra_df.merge(labels_df, how='inner', left_index=True, right_index=True)
+        return labels_df
+    
+    elif not embeddings_path and cases and not static and temp_prec:
+        # Cases and temp_prec are True
+        features_extra_df = read_labels(path=cases, Municipality=municipality)
+        features_extra_df.rename(columns={'Labels':'cases'}, inplace=True)    
+        labels_df = features_extra_df.merge(labels_df, how='inner', left_index=True, right_index=True)
+        # Temperature and Precipitation
+        features_df = get_temperature_and_precipitation(municipality, temp_prec)
+        dengue_df = features_df.merge(labels_df, how='inner', left_index=True, right_index=True)
+        return dengue_df
         
-    return dengue_df
+    elif not embeddings_path and cases and static and not temp_prec:
+        # Cases and static are True
+        static = read_static(path=static, Municipality=municipality)
+        labels_df = static.merge(labels_df, how='right', left_index=True, right_index=True)
+        labels_df = labels_df.fillna(labels_df.mode().iloc[0])
+        # Cases
+        features_extra_df = read_labels(path=cases, Municipality=municipality)
+        features_extra_df.rename(columns={'Labels':'cases'}, inplace=True) 
+        labels_df = features_extra_df.merge(labels_df, how='inner', left_index=True, right_index=True)
+        return labels_df
+        
+    elif not embeddings_path and cases and static and temp_prec:
+        # Cases, static, and temp_prec are True
+        static = read_static(path=static, Municipality=municipality)
+        labels_df = static.merge(labels_df, how='right', left_index=True, right_index=True)
+        labels_df = labels_df.fillna(labels_df.mode().iloc[0])
+        # Cases
+        features_extra_df = read_labels(path=cases, Municipality=municipality)
+        features_extra_df.rename(columns={'Labels':'cases'}, inplace=True) 
+        labels_df = features_extra_df.merge(labels_df, how='inner', left_index=True, right_index=True)
+        # Temperature and Precipitation
+        features_df = get_temperature_and_precipitation(municipality, temp_prec)
+        dengue_df = features_df.merge(labels_df, how='inner', left_index=True, right_index=True)
+        return dengue_df
+        
+    elif embeddings_path and not cases and not static and not temp_prec:
+        # Only embeddings_path is True
+        features_df = read_features(path=embeddings_path, Municipality=municipality)
+        dengue_df = features_df.merge(labels_df, how='inner', left_index=True, right_index=True)
+        return dengue_df
+    
+    elif embeddings_path and not cases and not static and temp_prec:
+        # Embeddings_path and temp_prec are True
+        # Temperature and Precipitation
+        features_extra_df = get_temperature_and_precipitation(municipality, temp_prec)
+        labels_df = features_extra_df.merge(labels_df, how='inner', left_index=True, right_index=True)
+        # Embeddings:
+        features_df = read_features(path=embeddings_path, Municipality=municipality)
+        dengue_df = features_df.merge(labels_df, how='inner', left_index=True, right_index=True)
+        return dengue_df
+        
+    elif embeddings_path and not cases and static and not temp_prec:
+        # Embeddings_path and static are True
+        static = read_static(path=static, Municipality=municipality)
+        labels_df = static.merge(labels_df, how='right', left_index=True, right_index=True)
+        labels_df = labels_df.fillna(labels_df.mode().iloc[0])  
+        # Embeddings:
+        features_df = read_features(path=embeddings_path, Municipality=municipality)
+        dengue_df = features_df.merge(labels_df, how='inner', left_index=True, right_index=True)
+        return dengue_df
+    
+    elif embeddings_path and not cases and static and temp_prec:
+        # Embeddings_path, static, and temp_prec are True
+        static = read_static(path=static, Municipality=municipality)
+        labels_df = static.merge(labels_df, how='right', left_index=True, right_index=True)
+        labels_df = labels_df.fillna(labels_df.mode().iloc[0]) 
+        # Temperature and Precipitation
+        features_extra_df = get_temperature_and_precipitation(municipality, temp_prec)
+        labels_df = features_extra_df.merge(labels_df, how='inner', left_index=True, right_index=True)
+        # Embeddings:
+        features_df = read_features(path=embeddings_path, Municipality=municipality)
+        dengue_df = features_df.merge(labels_df, how='inner', left_index=True, right_index=True)
+        return dengue_df
+        
+    elif embeddings_path and cases and not static and not temp_prec:
+        # Embeddings_path and cases are True
+        # Cases
+        features_extra_df = read_labels(path=cases, Municipality=municipality)
+        features_extra_df.rename(columns={'Labels':'cases'}, inplace=True) 
+        labels_df = features_extra_df.merge(labels_df, how='inner', left_index=True, right_index=True)        
+        # Embeddings:
+        features_df = read_features(path=embeddings_path, Municipality=municipality)
+        dengue_df = features_df.merge(labels_df, how='inner', left_index=True, right_index=True)
+        return dengue_df
+    
+    elif embeddings_path and cases and not static and temp_prec:
+        # Embeddings_path, cases, and temp_prec are True
+        # Cases
+        features_extra_df = read_labels(path=cases, Municipality=municipality)
+        features_extra_df.rename(columns={'Labels':'cases'}, inplace=True) 
+        labels_df = features_extra_df.merge(labels_df, how='inner', left_index=True, right_index=True)
+        # Temperature and Precipitation
+        features_extra_df = get_temperature_and_precipitation(municipality, temp_prec)
+        labels_df = features_extra_df.merge(labels_df, how='inner', left_index=True, right_index=True)        
+        # Embeddings:
+        features_df = read_features(path=embeddings_path, Municipality=municipality)
+        dengue_df = features_df.merge(labels_df, how='inner', left_index=True, right_index=True)
+        return dengue_df
+        
+    elif embeddings_path and cases and static and not temp_prec:
+        # Embeddings_path, cases, and static are True
+        static = read_static(path=static, Municipality=municipality)
+        labels_df = static.merge(labels_df, how='right', left_index=True, right_index=True)
+        labels_df = labels_df.fillna(labels_df.mode().iloc[0])
+        # Cases
+        features_extra_df = read_labels(path=cases, Municipality=municipality)
+        features_extra_df.rename(columns={'Labels':'cases'}, inplace=True)
+        labels_df = features_extra_df.merge(labels_df, how='inner', left_index=True, right_index=True)
+        # Embeddings:
+        features_df = read_features(path=embeddings_path, Municipality=municipality)
+        dengue_df = features_df.merge(labels_df, how='inner', left_index=True, right_index=True)
+        return dengue_df
+    
+    else:
+        # All variables are True
+        # Static
+        static = read_static(path=static, Municipality=municipality)
+        labels_df = static.merge(labels_df, how='right', left_index=True, right_index=True)
+        labels_df = labels_df.fillna(labels_df.mode().iloc[0])
+        # Cases
+        features_extra_df = read_labels(path=cases, Municipality=municipality)
+        features_extra_df.rename(columns={'Labels':'cases'}, inplace=True)
+        labels_df = features_extra_df.merge(labels_df, how='inner', left_index=True, right_index=True)
+        # Temperature and Precipitation
+        features_extra_df = get_temperature_and_precipitation(municipality, temp_prec)
+        labels_df = features_extra_df.merge(labels_df, how='inner', left_index=True, right_index=True)  
+        # Embeddings:
+        features_df = read_features(path=embeddings_path, Municipality=municipality)
+        dengue_df = features_df.merge(labels_df, how='inner', left_index=True, right_index=True)
+        return dengue_df
 
 
 def train_test_split(df, train_percentage = 80):

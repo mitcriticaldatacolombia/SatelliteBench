@@ -17,23 +17,39 @@ def smape(y_true, y_pred):
     return smape
 
 
-def create_model(model, model_2, dense_acivation='relu'):
+def create_model(model, model_2, model_3=None, fusion=None, dense_acivation='relu'):
 
     # Create a Sequential Model
     input1 = model.inputs
     input2 = model_2.input
-    
+        
+    if fusion == 'early' or 'joint':
+        model.layers.pop()
+        model_2.layers.pop()
+        if model_3:
+            model_3.layers.pop()
+            
+    if model_3:
+        input3 = model_3.input
+        out_3 = model_3(input3)       
+
     out_1 = model(input1)
     out_2 = model_2(input2)
     
-    concat_x = concatenate([out_1, out_2])
+    if model_3:
+        concat_x = concatenate([out_1, out_2, out_3])
+    else:
+        concat_x = concatenate([out_1, out_2])
 
     #Final Layer
     x = Dense(2, activation=dense_acivation)(concat_x)
     output_layer = Dense(1)(x)
 
     #Model Definition 
-    final_model = Model(inputs=[(input1,input2)],outputs=[output_layer])
+    if model_3:
+        final_model = Model(inputs=[(input1, input2, input3)], outputs=[output_layer])
+    else:
+        final_model = Model(inputs=[(input1, input2)], outputs=[output_layer])
 
 
     # Compile the model:
@@ -50,23 +66,40 @@ def create_model(model, model_2, dense_acivation='relu'):
 
     return final_model
 
-def classification_aggregation(model, model_2, dense_acivation='relu'):
+def classification_aggregation(model, model_2, model_3=None, fusion=None, dense_acivation='relu'):
+
 
     # Create a Sequential Model
     input1 = model.inputs
     input2 = model_2.input
-    
+        
+    if fusion == 'early' or 'joint':
+        model.layers.pop()
+        model_2.layers.pop()
+        if model_3:
+            model_3.layers.pop()
+            
+    if model_3:
+        input3 = model_3.input
+        out_3 = model_3(input3)       
+
     out_1 = model(input1)
     out_2 = model_2(input2)
     
-    concat_x = concatenate([out_1, out_2])
+    if model_3:
+        concat_x = concatenate([out_1, out_2, out_3])
+    else:
+        concat_x = concatenate([out_1, out_2])
 
     #Final Layer
     x = Dense(6, activation=dense_acivation)(concat_x)
     output_layer = Dense(3, activation='softmax')(x)
 
-    # Model Definition 
-    final_model = Model(inputs=[(input1,input2)],outputs=[output_layer])
+    #Model Definition 
+    if model_3:
+        final_model = Model(inputs=[(input1, input2, input3)], outputs=[output_layer])
+    else:
+        final_model = Model(inputs=[(input1, input2)], outputs=[output_layer])
 
     # Compile the model:
     opt = keras.optimizers.Adam()

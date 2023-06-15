@@ -35,7 +35,20 @@ def plot_samples(path):
         image_tiff = io.imread(image_path)
         show_image(image_tiff)
         
-def get_dataset_list(path, head=0, show_dirs=False):
+def count_black(image):
+    """ Count the number of black pixels in an image"""
+    black_pixels = np.count_nonzero(image==0)
+    #print(black_pixels)
+    pixels = image.shape[0] * image.shape[1] * image.shape[2]
+    
+    if black_pixels == pixels:
+        #print('The image is black')
+        return True
+    else:
+        return False
+    
+        
+def get_dataset_list(path, ignore_black=True, head=0, show_dirs=False):
     image_list = []
     image_dir = {}
     
@@ -57,6 +70,12 @@ def get_dataset_list(path, head=0, show_dirs=False):
                 if os.path.isdir(image_path):
                     #print(f'Directory: {image_path}')
                     continue
+                if ignore_black:
+                    # Check the image:
+                    image = io.imread(image_path)
+                    is_black = count_black(image)
+                    if is_black:
+                        continue
                 #img_path = path + file
                 image_list.append(image_path)
     if head:
@@ -187,7 +206,10 @@ def show_random_images(list_data, augmentation=None, target_size=(224,224,3)):
         plt.subplot(330 + 1 + i)
 
         # plot raw pixel data
-        plt.imshow(x[i, :, :, :])
+        if target_size[2] == 3:
+            plt.imshow(x[i, :, :, :])
+        else:
+            plt.imshow(x[i, :, :, 1:4])
         #plt.title(f'Image {[i]}')
 
     # show the figure

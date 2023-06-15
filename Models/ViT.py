@@ -1,7 +1,24 @@
 from tensorflow.keras.layers import Input, Permute
 from tensorflow.keras.models import Model
+import tensorflow as tf
 
 from transformers import TFViTModel
+
+class ViTLayer(tf.keras.layers.Layer):
+    def __init__(self, backbone, **kwargs):
+        super(ViTLayer, self).__init__(**kwargs)
+        self.backbone = backbone
+        
+    def build(self, input_shape):
+        self.vit = TFViTModel.from_pretrained(self.backbone)
+        
+    def call(self, inputs):
+        out = self.vit(inputs)['pooler_output']
+        return out
+    
+    def compute_output_shape(self, input_shape):
+        return (input_shape[0], self.vit.config.hidden_size)
+    
 
 # Get ViT Model:
 def get_vit_backbone(target_size, freeze=True):
@@ -30,3 +47,4 @@ def get_vit_backbone(target_size, freeze=True):
     vit_model.compile()
 
     return vit_model
+

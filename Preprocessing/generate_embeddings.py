@@ -67,6 +67,8 @@ def get_image_name(path):
 def get_municipality_name(path):
     if '_cities/' in path:
         image_name = path[path.index('_cities/')+8:path.index('/image')]
+    elif 'FULL_COLOMBIA_v2/' in path:
+        image_name = path[path.index('FULL_COLOMBIA_v2/')+17:path.index('/image')]
     else:
         image_name = path[path.index('_augmented/')+11:path.index('/image')]
     return image_name

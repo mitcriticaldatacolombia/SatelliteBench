@@ -944,7 +944,7 @@ def multimodal_split(train_X, train_y, test_X, test_y, embeddings, static, temp_
 
 
 """ Preprocess the entire dataset for 1 single municipality """
-def preprocess_dataset_to_time_series(df, train_percentage = 80, feature_range=(-1, 1), T=3, autoregressive = False, normalize=True, reshape=True, min_max=None):
+def preprocess_dataset_to_time_series(df, train_percentage = 80, feature_range=(-1, 1), T=3, autoregressive=False, normalize=True, reshape=True, min_max=None):
     """ Train-Test Split"""
     train_df, test_df = train_test_split(df, train_percentage = train_percentage)
     """ Normalization """

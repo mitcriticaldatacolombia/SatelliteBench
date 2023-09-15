@@ -18,6 +18,9 @@ This repository contains the implementation of a data fusion framework that comb
 ## Introduction
 Data fusion of satellite images and tabular data has shown promising results in various domains. In this project, we propose a multimodal data fusion framework that combines the visual information from satellite images with contextual tabular data to predict dengue outbreaks and analyze socioeconomic indicators. The framework consists of two main components: (1) Variational Autoencoders (VAE) for generating embeddings from satellite images and (2) an LSTM-based data fusion model to integrate the embeddings with temporal metadata.
 
+![Chenwei_Fusion_Model_SatelliteBench-Final_Model](https://github.com/mitcriticaldatacolombia/MIT_Multimodal_Satellite_Images_Fusion/assets/36363910/a5e6828a-dcca-4312-a0a1-dc71c9ce99b8)
+
+
 ## Installation
 To use the code in this repository, follow these steps:
 

@@ -3,6 +3,9 @@
 ## Overview
 This repository contains the implementation of a data fusion framework that combines satellite images and tabular data for dengue prediction and socioeconomic analysis. The framework leverages variational autoencoders (VAE) for generating embeddings and employs an LSTM-based data fusion model to integrate time series of embeddings and metadata. The experiments in this repository demonstrate the effectiveness of the proposed approach in predicting dengue outbreaks and analyzing socioeconomic indicators like poverty and access to water.
 
+## Demo
+
+
 ## Table of Contents
 - [Introduction](#introduction)
 - [Installation](#installation)
@@ -52,6 +55,14 @@ This repository includes the following experiments:
 
 ## Results
 The results of the experiments are provided in the `results` directory. We include evaluation metrics and visualizations that demonstrate the performance of the data fusion framework for dengue prediction and socioeconomic analysis.
+
+Geo-heatmap of Dengue Outbreak - Real 2019 Dec 23-29
+![stA](https://github.com/mitcriticaldatacolombia/MIT_Multimodal_Satellite_Images_Fusion/assets/36363910/bf8488d4-b34c-4e75-921b-f17164ecbbd4)
+Geo-heatmap of Dengue Outbreak - Predicted 2019 Dec 23-29
+![stB](https://github.com/mitcriticaldatacolombia/MIT_Multimodal_Satellite_Images_Fusion/assets/36363910/ffe1ee02-0a0c-43ef-a525-34356e4d9298)
+
+## Colab Demo
+We have also included a demo here [demo](https://colab.research.google.com/drive/1s28QdNin6lPOBPD6ibATNR2SZZQCjEY2?usp=sharing) on google colab. Runnable with free tier!
 
 ## Contributing
 We welcome contributions to this repository! If you find any issues or have improvements to suggest, please open an issue or a pull request.

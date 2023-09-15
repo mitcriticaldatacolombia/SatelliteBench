@@ -10,7 +10,7 @@ This repository contains the implementation of a data fusion framework that comb
 - [Usage](#usage)
 - [Experiments](#experiments)
 - [Results](#results)
-- [Colab Demo](#Colab Demo)
+- [Colab Demo](https://colab.research.google.com/drive/1s28QdNin6lPOBPD6ibATNR2SZZQCjEY2?usp=sharing))
 - [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)

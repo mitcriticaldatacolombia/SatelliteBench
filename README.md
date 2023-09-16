@@ -3,7 +3,7 @@
 ## Overview
 This repository contains the implementation of a data fusion framework that combines satellite images and tabular data for dengue prediction and socioeconomic analysis. The framework leverages variational autoencoders (VAE) for generating embeddings and employs an LSTM-based data fusion model to integrate time series of embeddings and metadata. The experiments in this repository demonstrate the effectiveness of the proposed approach in predicting dengue outbreaks and analyzing socioeconomic indicators like poverty and access to water.
 
-- Note: For the data extraction also check the [satellite extractor](https://github.com/mitcriticaldatacolombia/satellite.extractor/blob/main/README.md)
+- Note: For the data extraction also check the [satellite extractor](https://github.com/mitcriticaldatacolombia/satellite.extractor/tree/main)
 
 
 ## Table of Contents

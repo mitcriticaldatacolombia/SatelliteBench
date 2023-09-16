@@ -6,7 +6,7 @@ This repository contains the implementation of a data fusion framework that comb
 
 ## Table of Contents
 - [Introduction](#introduction)
-- [Satellite Extractor](#satellite extractor)
+- [Satellite_Extractor](#satellite_extractor)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Experiments](#experiments)

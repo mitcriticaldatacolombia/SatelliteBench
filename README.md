@@ -6,7 +6,7 @@ This repository contains the implementation of a data fusion framework that comb
 
 ## Table of Contents
 - [Introduction](#introduction)
-- [Satellite_Extractor](#satellite_extractor)
+- [Satellite Extractor](#satellite_extractor)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Experiments](#experiments)
@@ -21,8 +21,8 @@ Data fusion of satellite images and tabular data has shown promising results in 
 
 ![Chenwei_Fusion_Model_SatelliteBench-Final_Model](https://github.com/mitcriticaldatacolombia/MIT_Multimodal_Satellite_Images_Fusion/assets/36363910/a5e6828a-dcca-4312-a0a1-dc71c9ce99b8)
 
-## Satellite Extractor
-The first step to use the code is to obtain the dataset that is used in each of the notebooks. The full dataset used that contains weekly satellite images of 81 cities in Colombia between 2016 and 2018, can be found in [Hugging Face](https://huggingface.co/MITCriticalData).
+## Dataset
+The first step to use the code is to obtain the dataset that is used in each of the notebooks. You can find a demo dataset in `Demo_dataset/`. The demo dataset contains the files with the following data: satellite image embeddings generated using a variational autoencoder method with a Resnet 50 V2 backbone, meetadata and dengue cases, temperature, and precipitation. The satellite image embeddings is available for all the 12 bands, and RGB bands. The full dataset used that contains weekly satellite images of 81 cities in Colombia between 2016 and 2018, can be found in [Hugging Face](https://huggingface.co/MITCriticalData).
 
 If you want to generate your own dataset of satellite images extracted for specific coordinates, you can use the satellite extractor framework. The framework fro satellite images extraction can be found in the following link: [satellite extractor](https://github.com/mitcriticaldatacolombia/satellite.extractor/tree/main).
 

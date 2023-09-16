@@ -3,11 +3,10 @@
 ## Overview
 This repository contains the implementation of a data fusion framework that combines satellite images and tabular data for dengue prediction and socioeconomic analysis. The framework leverages variational autoencoders (VAE) for generating embeddings and employs an LSTM-based data fusion model to integrate time series of embeddings and metadata. The experiments in this repository demonstrate the effectiveness of the proposed approach in predicting dengue outbreaks and analyzing socioeconomic indicators like poverty and access to water.
 
-- Note: For the data extraction also check the [satellite extractor](https://github.com/mitcriticaldatacolombia/satellite.extractor/tree/main)
-
 
 ## Table of Contents
 - [Introduction](#introduction)
+- [Satellite Extractor](#satellite extractor)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Experiments](#experiments)
@@ -22,6 +21,10 @@ Data fusion of satellite images and tabular data has shown promising results in 
 
 ![Chenwei_Fusion_Model_SatelliteBench-Final_Model](https://github.com/mitcriticaldatacolombia/MIT_Multimodal_Satellite_Images_Fusion/assets/36363910/a5e6828a-dcca-4312-a0a1-dc71c9ce99b8)
 
+## Satellite Extractor
+The first step to use the code is to obtain the dataset that is used in each of the notebooks. The full dataset used that contains weekly satellite images of 81 cities in Colombia between 2016 and 2018, can be found in [Hugging Face](https://huggingface.co/MITCriticalData).
+
+If you want to generate your own dataset of satellite images extracted for specific coordinates, you can use the satellite extractor framework. The framework fro satellite images extraction can be found in the following link: [satellite extractor](https://github.com/mitcriticaldatacolombia/satellite.extractor/tree/main).
 
 ## Installation
 To use the code in this repository, follow these steps:

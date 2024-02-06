@@ -32,8 +32,8 @@ To use the code in this repository, follow these steps:
 1. Clone the repository:
 
 ```
-git clone https://github.com/dsrestrepo/MIT_Multimodal_Satellite_Images_Fusion.git
-cd MIT_Multimodal_Satellite_Images_Fusion
+git clone https://github.com/mitcriticaldatacolombia/SatelliteBench.git
+cd SatelliteBench
 ```
 
 2. Set up the Python environment. It is recommended to use a virtual environment:

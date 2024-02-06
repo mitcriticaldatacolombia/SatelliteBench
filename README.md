@@ -76,7 +76,3 @@ We welcome contributions to this repository! If you find any issues or have impr
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
-
-## Contact
-For any questions or inquiries, please feel free to reach out to David Restrepo at davidres@mit.edu.
-

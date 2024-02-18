@@ -1,2 +1,5 @@
 *.h5
 *.csv
+!External_Val/*.csv
+*.ipynb_checkpoints
+*__pycache__

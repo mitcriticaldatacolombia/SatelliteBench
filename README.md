@@ -56,11 +56,11 @@ Once you have installed the required dependencies, you can use the code for gene
 This repository includes the following experiments:
 
 
-1. **Download your customized satellite images**: Customize your own satellite images based on the desired timestamps and Regions of Intereest (ROI). See notebook [here](https://github.com/mitcriticaldatacolombia/SatelliteBench/blob/main/download_images.ipynb)
-1. **Embedding Generation:** Implementation of variational autoencoders (VAE) for generating embeddings from satellite images.
-1. **Data Fusion Model:** Implementation of the LSTM-based data fusion model that integrates the time series of embeddings with temporal metadata.
-1. **Dengue Prediction:** Using the fused embeddings to predict dengue outbreaks based on the multimodal data.
-1. **Socioeconomic Analysis:** Utilizing the fused embeddings to analyze socioeconomic indicators like poverty and access to water.
+1. **Download your customized satellite images**: Customize satellite images to your specifications by selecting desired timestamps and Regions of Interest (ROIs). See notebook [here](https://github.com/mitcriticaldatacolombia/SatelliteBench/blob/main/download_images.ipynb)
+1. **Embedding Generation:** Our project encompasses the sophisticated implementation of variational autoencoders (VAE), meticulously crafted to generate embeddings extracted from satellite images. Through the seamless integration of cutting-edge VAE technology, we ensure the precise extraction and representation of intricate spatial features, facilitating advanced analytics and insights.
+1. **Data Fusion Model:** Within our framework, we introduce a robust LSTM-based data fusion model meticulously designed to amalgamate the temporal evolution of embeddings with comprehensive temporal metadata. This innovative approach empowers us to harness the power of longitudinal data streams, enabling a deeper understanding of complex spatial-temporal dynamics and facilitating enhanced predictive modeling capabilities.
+1. **Dengue Prediction:** Leveraging the integrated embeddings derived from our data fusion model, we embark on a pioneering endeavor to forecast dengue outbreaks with unparalleled accuracy. By harnessing the multimodal nature of our data, we equip stakeholders with invaluable predictive insights, empowering proactive measures and interventions to mitigate the impact of dengue outbreaks and safeguard public health.
+1. **Socioeconomic Analysis:** Our comprehensive framework extends beyond predictive analytics to encompass a multifaceted exploration of socioeconomic dynamics. Through the utilization of fused embeddings, we embark on an insightful journey to analyze critical socioeconomic indicators such as poverty levels and access to water resources. This holistic approach not only facilitates a nuanced understanding of societal challenges but also informs targeted interventions and policy decisions aimed at fostering sustainable development and societal well-being.
 
 ## Results
 The results of the experiments are provided in the `results` directory. We include evaluation metrics and visualizations that demonstrate the performance of the data fusion framework for dengue prediction and socioeconomic analysis.
@@ -74,7 +74,8 @@ Geo-heatmap of Dengue Outbreak - Predicted 2019 Dec 23-29
 We have also included a demo here [demo](https://colab.research.google.com/drive/1s28QdNin6lPOBPD6ibATNR2SZZQCjEY2?usp=sharing) on google colab. Runnable with free tier!
 
 ## Contributing
-We welcome contributions to this repository! If you find any issues or have improvements to suggest, please open an issue or a pull request.
+
+Your contributions to this repository are highly encouraged! Should you encounter any issues or have suggestions for improvements, we invite you to initiate an issue or submit a pull request. Your input is valued and greatly appreciated.
 
 ## License
 This project is licensed under the [MIT License](LICENSE).

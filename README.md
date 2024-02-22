@@ -55,10 +55,12 @@ Once you have installed the required dependencies, you can use the code for gene
 ## Experiments
 This repository includes the following experiments:
 
+
+1. **Download your customized satellite images**: Customize your own satellite images based on the desired timestamps and Regions of Intereest (ROI). See notebook [here](https://github.com/mitcriticaldatacolombia/SatelliteBench/blob/main/download_images.ipynb)
 1. **Embedding Generation:** Implementation of variational autoencoders (VAE) for generating embeddings from satellite images.
-2. **Data Fusion Model:** Implementation of the LSTM-based data fusion model that integrates the time series of embeddings with temporal metadata.
-3. **Dengue Prediction:** Using the fused embeddings to predict dengue outbreaks based on the multimodal data.
-4. **Socioeconomic Analysis:** Utilizing the fused embeddings to analyze socioeconomic indicators like poverty and access to water.
+1. **Data Fusion Model:** Implementation of the LSTM-based data fusion model that integrates the time series of embeddings with temporal metadata.
+1. **Dengue Prediction:** Using the fused embeddings to predict dengue outbreaks based on the multimodal data.
+1. **Socioeconomic Analysis:** Utilizing the fused embeddings to analyze socioeconomic indicators like poverty and access to water.
 
 ## Results
 The results of the experiments are provided in the `results` directory. We include evaluation metrics and visualizations that demonstrate the performance of the data fusion framework for dengue prediction and socioeconomic analysis.

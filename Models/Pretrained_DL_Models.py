@@ -2,7 +2,7 @@ import tensorflow as tf
 from tensorflow.keras import Sequential
 from tensorflow.keras.applications import MobileNetV2, VGG16, ResNet50V2
 from tensorflow.keras.applications.convnext import ConvNeXtBase, ConvNeXtSmall, ConvNeXtTiny
-from keras_cv.models import ViTTiny16
+#from keras_cv.models import ViTTiny16
 
 from huggingface_hub import from_pretrained_keras
 from transformers import TFViTModel
@@ -65,19 +65,19 @@ def get_backbone(target_size, backbone, freeze=True, weights='imagenet'):
             cnn = tf.keras.Sequential()
             for layer in model.layers[:-1]: # just exclude last layer from copying
                 cnn.add(layer)
-        else:
-            inputs = tf.keras.layers.Input(shape=target_size)
-            cnn = ViTTiny16(
-                    include_rescaling=False,
-                    include_top=False,
-                    name="ViTTiny32",
-                    weights=weights,
-                    input_tensor=inputs,
-                    pooling="token_pooling",
-                    activation=tf.keras.activations.gelu,
-                )
+        #else:
+        #    inputs = tf.keras.layers.Input(shape=target_size)
+        #    cnn = ViTTiny16(
+        #            include_rescaling=False,
+        #            include_top=False,
+        #            name="ViTTiny32",
+        #            weights=weights,
+        #            input_tensor=inputs,
+        #            pooling="token_pooling",
+        #            activation=tf.keras.activations.gelu,
+        #        )
             
-            cnn.trainable = True
+        #    cnn.trainable = True
             
     
     

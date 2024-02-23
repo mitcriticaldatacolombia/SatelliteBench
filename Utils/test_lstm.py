@@ -12,7 +12,7 @@ from Preprocessing.time_series_preprocessing import preprocess_dataset_to_time_s
 from Models.LSTM import create_model, train_model, create_model_classification
 from Models.Transformer import create_model as create_transformer_model
 from Models.Transformer import create_model as create_transformer_model_classification
-from Models.Aggregation import create_model as create_aggregation_model
+from Models.Aggregation import create_aggregation_model as create_aggregation_model
 from Models.Aggregation import classification_aggregation
 
 from keras.layers import Input, Dense, concatenate

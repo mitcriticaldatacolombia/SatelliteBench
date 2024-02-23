@@ -209,9 +209,9 @@ def create_model_classification(lstm_layers=[120, 240], nn_layers=[60, 3], seque
         
     # Compile the model:
     if int(tf.__version__.split('.')[1]) >= 11:
-        opt = tf.keras.optimizers.legacy.Adam()
+        opt = tf.keras.optimizers.legacy.Adam(learning_rate=0.001)
     else:
-        opt = tf.keras.optimizers.Adam()
+        opt = tf.keras.optimizers.Adam(learning_rate=0.001)
     
     # Metrics
     metrics = [

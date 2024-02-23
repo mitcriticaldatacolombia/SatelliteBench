@@ -1,6 +1,6 @@
 *.h5
 *.csv
-!External_Val/*.csv
+!External_Val/*
 *.ipynb_checkpoints
 *__pycache__
 .DS_Store

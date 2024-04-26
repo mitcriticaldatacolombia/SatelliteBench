@@ -1,0 +1,21 @@
+Column,Moran's I,Geary's C
+Latitud,0.947,0.018
+Longitud,0.908,0.04
+Buildingstratification1(%),0.591,0.422
+Age5-14(%),0.553,0.37
+Age>30(%),0.542,0.414
+2017_precip,0.535,0.388
+2016_precip,0.525,0.397
+2018_precip,0.52,0.406
+2017_temp,0.503,0.506
+2016_temp,0.503,0.507
+2018_temp,0.5,0.509
+Buildingstratification2(%),0.496,0.511
+Código Municipio,0.468,0.51
+Age0-4(%),0.462,0.485
+Employedpopulation(%),0.412,0.556
+IndianPopulation(%),0.41,0.513
+AfrocolombianPopulation(%),0.384,0.551
+Householdswithoutinternetaccess(%),0.348,0.662
+Age15-29(%),0.345,0.652
+Householdswithoutwateraccess(%),0.298,0.647

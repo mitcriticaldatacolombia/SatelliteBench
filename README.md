@@ -1,5 +1,7 @@
 # Multimodal Satellite Images Fusion for Dengue Prediction and Socioeconomic Analysis
 
+- 📄 **Paper**: ([Online](https://link.springer.com/chapter/10.1007/978-3-031-82346-6_1))
+- 🤗 **Dataset on HuggingFace**: ([MIT Critical data Colombia](https://huggingface.co/MITCriticalData))
 ## Overview
 This repository contains the implementation of a data fusion framework that combines satellite images and tabular data for dengue prediction and socioeconomic analysis. The framework leverages variational autoencoders (VAE) for generating embeddings and employs an LSTM-based data fusion model to integrate time series of embeddings and metadata. The experiments in this repository demonstrate the effectiveness of the proposed approach in predicting dengue outbreaks and analyzing socioeconomic indicators like poverty and access to water.
 

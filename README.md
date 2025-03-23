@@ -73,7 +73,7 @@ Geo-heatmap of Dengue Outbreak - Predicted 2019 Dec 23-29
 ![stB](https://github.com/mitcriticaldatacolombia/MIT_Multimodal_Satellite_Images_Fusion/assets/36363910/ffe1ee02-0a0c-43ef-a525-34356e4d9298)
 
 ## Colab Demo
-We have also included a demo here [demo](https://colab.research.google.com/drive/1s28QdNin6lPOBPD6ibATNR2SZZQCjEY2?usp=sharing) on google colab. Runnable with free tier!
+We have also included a demo here [demo](https://colab.research.google.com/github/mitcriticaldatacolombia/SatelliteBench/blob/main/Time_Series_Fusion_Network_Demo.ipynb) on google colab. Runnable with free tier!
 
 ## Contributing
 

@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it using the following metadata."
 title: "SatelliteBench"
 version: "1.0.0"  # Replace with the actual version if different
-doi: ""  # Add the DOI if available
+doi: "https://doi.org/10.1038/s41597-024-03366-1"  # Add the DOI if available
 url: "https://github.com/mitcriticaldatacolombia/SatelliteBench"
 authors:
   - family-names: "Restrepo"
